@@ -42,7 +42,8 @@ func NewTokenizer(d []byte) *Tokenizer {
 // Should be run in a loop.
 // ErrEnd returned means end of processing.
 func (t *Tokenizer) NextToken() ([]byte, error) {
-	var buffer = t.pool.Get().([]byte)[:0]
+	var buffer = t.pool.Get().([]byte)
+	buffer = buffer[:0]
 	defer t.pool.Put(buffer)
 
 	started, exit := false, false
