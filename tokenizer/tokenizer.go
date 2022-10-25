@@ -28,13 +28,13 @@ type Tokenizer struct {
 }
 
 // NewTokenizer constructs Tokenizer object
-func NewTokenizer(d []byte) Tokenizer {
+func NewTokenizer(d []byte) *Tokenizer {
 	var p = sync.Pool{
 		New: func() any {
 			return make([]byte, 1024)
 		},
 	}
-	return Tokenizer{data: d, pool: p}
+	return &Tokenizer{data: d, pool: p}
 }
 
 // NextToken goes by input slice and returns tokens.

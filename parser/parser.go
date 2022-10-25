@@ -19,7 +19,7 @@ func NewParser() Parser {
 }
 
 // Parse use tokenizer to go through input string and convert it to canonical one.
-func (p *Parser) Parse(tokenizer tknz.Tokenizer) error {
+func (p *Parser) Parse(tokenizer *tknz.Tokenizer) error {
 outer:
 	for {
 		token, err := tokenizer.NextToken()
