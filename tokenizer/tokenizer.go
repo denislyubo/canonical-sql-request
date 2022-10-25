@@ -49,7 +49,7 @@ func (t *Tokenizer) NextToken() ([]byte, error) {
 	for {
 		if t.i >= len(t.data) {
 			if started {
-				return buffer, nil
+				return append([]byte(nil), buffer...), nil
 			}
 			return nil, ErrEnd
 		}
@@ -81,5 +81,5 @@ func (t *Tokenizer) NextToken() ([]byte, error) {
 		}
 	}
 
-	return buffer, nil
+	return append([]byte(nil), buffer...), nil
 }
