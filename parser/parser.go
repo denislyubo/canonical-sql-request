@@ -1,3 +1,4 @@
+// Package parser provides logic of conversion of obtained tokens to canonical one.
 package parser
 
 import (
@@ -7,14 +8,17 @@ import (
 	"strings"
 )
 
+// Parser is main object for storing mutating data.
 type Parser struct {
 	sb *strings.Builder
 }
 
+// NewParser constructs Parser struct
 func NewParser() Parser {
 	return Parser{sb: &strings.Builder{}}
 }
 
+// Parse use tokenizer to go through input string and convert it to canonical one.
 func (p *Parser) Parse(tokenizer tknz.Tokenizer) error {
 outer:
 	for {
@@ -50,6 +54,7 @@ outer:
 	return nil
 }
 
+// String interface implementation to convert Parse result to string
 func (p Parser) String() string {
 	s := p.sb.String()
 
@@ -59,6 +64,8 @@ func (p Parser) String() string {
 	return s
 }
 
+// Reset is clearing internal buffer of Parser object.
+// Usually should be called after Parse() as defer Reset().
 func (p *Parser) Reset() {
 	p.sb = &strings.Builder{}
 }

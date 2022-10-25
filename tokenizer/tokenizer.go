@@ -1,7 +1,9 @@
+// Package tokenizer responsible for tokenizing input byte slice.
 package tokenizer
 
 import "fmt"
 
+// ErrEnd means end of input byte slice.
 var (
 	ErrEnd = fmt.Errorf("end of input")
 )
@@ -15,15 +17,21 @@ var (
 	}
 )
 
+// Tokenizer is main object for storing data.
 type Tokenizer struct {
 	data []byte
 	i    int
 }
 
+// NewTokenizer constructs Tokenizer object
 func NewTokenizer(d []byte) Tokenizer {
 	return Tokenizer{data: d}
 }
 
+// NextToken goes by input slice and returns tokens.
+// Delimiters are stored in tokens map. Default delimiter is gap.
+// Should be run in a loop.
+// ErrEnd returned means end of processing.
 func (t *Tokenizer) NextToken() ([]byte, error) {
 	var b []byte
 	started, exit := false, false
