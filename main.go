@@ -2,7 +2,9 @@ package main
 
 import (
 	"bufio"
-	t "github.com/denislyubo/canonical-sql-request/tokenizer"
+	"fmt"
+	p "github.com/denislyubo/canonical-sql-request/parser"
+	"github.com/denislyubo/canonical-sql-request/tokenizer"
 	"log"
 	"os"
 )
@@ -14,9 +16,8 @@ func main() {
 		return
 	}
 	data := scanner.Bytes()
-
-	tokenizer := t.NewTokenizer(data)
-
-	tokenizer.NextToken()
-
+	parser := p.NewParser()
+	parser.Parse(tokenizer.NewTokenizer(data))
+	fmt.Println(parser)
+	parser.Reset()
 }

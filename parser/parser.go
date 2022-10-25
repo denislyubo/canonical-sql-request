@@ -7,15 +7,6 @@ import (
 	"strings"
 )
 
-var (
-	tokens = map[string]struct{}{
-		"select": {},
-		"*":      {},
-		"from":   {},
-		"in":     {},
-	}
-)
-
 type Parser struct {
 	sb *strings.Builder
 }
