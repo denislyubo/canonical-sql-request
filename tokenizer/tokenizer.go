@@ -24,7 +24,7 @@ var (
 type Tokenizer struct {
 	data []byte
 	i    int
-	pool sync.Pool
+	pool *sync.Pool
 }
 
 // NewTokenizer constructs Tokenizer object
@@ -34,7 +34,7 @@ func NewTokenizer(d []byte) *Tokenizer {
 			return make([]byte, 1024)
 		},
 	}
-	return &Tokenizer{data: d, pool: p}
+	return &Tokenizer{data: d, pool: &p}
 }
 
 // NextToken goes by input slice and returns tokens.
