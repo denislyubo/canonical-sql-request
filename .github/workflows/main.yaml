@@ -71,7 +71,7 @@ jobs:
         with:
           # assuming github repository name is the same to docker hub one.
           images: |
-            ${{ secrets.DOCKER_USERNAME }}/{{ github.event.repository.name }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}
           tags: |
             type=ref,event=branch
             type=ref,event=pr
