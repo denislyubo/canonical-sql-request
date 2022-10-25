@@ -2,6 +2,7 @@
 package tokenizer
 
 import (
+	"bytes"
 	"fmt"
 	"sync"
 )
@@ -31,7 +32,7 @@ type Tokenizer struct {
 func NewTokenizer(d []byte) *Tokenizer {
 	var p = sync.Pool{
 		New: func() any {
-			return make([]byte, 1024)
+			return bytes.NewBuffer(make([]byte, 1024))
 		},
 	}
 	return &Tokenizer{data: d, pool: &p}
@@ -42,8 +43,9 @@ func NewTokenizer(d []byte) *Tokenizer {
 // Should be run in a loop.
 // ErrEnd returned means end of processing.
 func (t *Tokenizer) NextToken() ([]byte, error) {
-	buffer := t.pool.Get().([]byte)[:0]
-	defer t.pool.Put(buffer)
+	b := t.pool.Get().(*bytes.Buffer)
+	buffer := b.Bytes()[:0]
+	defer t.pool.Put(b)
 
 	started, exit := false, false
 	for {
